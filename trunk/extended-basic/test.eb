@@ -1,0 +1,14 @@
+Function Main() As Long
+  Dim a As Single
+  Dim b As Long 'currently not support 'Dim a ... , b ...'
+  'currently support automatic type conversion in operand, make statement and parameter
+  a = 1+2*10/4
+  b = a/3.0
+  Function = Test(a+b)
+  b = Function ^| 1
+  Function = b << 8 >> 4 % 5
+End Function
+
+Function Test(ByVal a As Long) As Long
+  Function = a & 7 | 8
+End Function

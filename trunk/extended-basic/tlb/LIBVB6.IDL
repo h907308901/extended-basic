@@ -1,0 +1,511 @@
+[uuid(DDE46742-D550-4195-8F68-4F60A10FB318),version(1.0)]
+library LIBVB6 {
+	typedef struct LARGE_INTEGER {
+		long LowPart;
+		long HighPart;
+	} LARGE_INTEGER, *PLARGE_INTEGER;
+	[dllname("kernel32.dll")]
+	module kernel32
+	{
+		[entry("GetLastError")] int GetLastError();
+		[entry("GetModuleHandleW")] long GetModuleHandle(BSTR lpModuleName);
+		[entry("LoadLibraryW")] long LoadLibrary(BSTR lpLibFileName);
+		[entry("GetProcAddress")] long GetProcAddress(long hModule, LPSTR lpProcName);
+		[entry("GetModuleHandleA")] long GetModuleHandlePtr(long lpModuleName);
+		[entry("LoadLibraryA")] long LoadLibraryPtr(long lpLibFileName);
+		[entry("GetProcAddress")] long GetProcAddressPtr(long hModule, long lpProcName);
+		[entry("FreeLibrary")] long FreeLibrary(long hLibModule);
+		[entry("lstrlenA")] long lstrlenA(void* lpString);
+		[entry("lstrcpyA")] long lstrcpyA(void* lpString1, void* lpString2);
+		[entry("lstrcpyA")] long lstrcpyA2(LPSTR lpString1, void* lpString2);
+		[entry("lstrcmpiA")] long lstrcmpiA(void* lpString1, void* lpString2);
+		[entry("lstrcmpiA")] long lstrcmpiA2(void* lpString1, LPSTR lpString2);
+		[entry("WriteProcessMemory")] long WriteProcessMemory(long hProcess, long lpBaseAddress,  void* lpBuffer, long nSize, long* lpNumberOfBytesWritten);
+		[entry("RtlMoveMemory")] void CopyMemory(void* Destination, void* Source, long Length);
+		[entry("RtlZeroMemory")] void ZeroMemory(void* Destination, long Length);
+		[entry("DebugBreak")] void DebugBreak();
+		[entry("CreateFileW")] int CreateFile(BSTR lpFileName, int dwDesiredAccess, int dwShareMode, void* lpSecurityAttributes, int dwCreationDisposition, int dwFlagsAndAttributes, int hTemplateFile);
+		int const FILE_SHARE_DELETE=0x4;
+		int const FILE_SHARE_READ=0x1;
+		int const FILE_SHARE_WRITE=0x2;
+		int const CREATE_ALWAYS=2;
+		int const CREATE_NEW=1;
+		int const OPEN_ALWAYS=4;
+		int const OPEN_EXISTING=3;
+		int const FILE_ALL_ACCESS=0x1f01ff;
+		int const FILE_FLAG_DELETE_ON_CLOSE=0x4000000;
+		int const SEEK_SET = 0;
+		int const SEEK_CUR = 1;
+		int const SEEK_END = 2;
+		[entry("ReadFile")] int ReadFile(int hFile, void* lpBuffer, int nNumberOfBytesToRead, int* lpNumberOfBytesRead, void* lpOverlapped);
+		[entry("WriteFile")] int WriteFile(int hFile, void* lpBuffer, int nNumberOfBytesToWrite, int* lpNumberOfBytesWritten, void* lpOverlapped);
+		[entry("GetFileSizeEx")] int GetFileSizeEx(int hFile, LARGE_INTEGER* lpFileSize);
+		[entry("GetFileSizeEx")] int GetFileSizeEx2(int hFile, void* lpFileSize);
+		[entry("CreateFileMappingW")] int CreateFileMapping(int hFile, void* lpFileMappigAttributes, int flProtect, int dwMaximumSizeHigh, int dwMaximumSizeLow, BSTR lpName);
+		[entry("SetFilePointerEx")] int SetFilePointerEx(int hFile, Currency liDistanceToMove, void* lpNewFilePointer, int dwMoveMethod);
+		int const PAGE_EXECUTE=0x10;
+		int const PAGE_EXECUTE_READ=0x20;
+		int const PAGE_EXECUTE_READWRITE=0x40;
+		int const PAGE_EXECUTE_WRITECOPY=0x80;
+		int const PAGE_GUARD=0x100;
+		int const PAGE_NOACCESS=0x1;
+		int const PAGE_NOCACHE=0x200;
+		int const PAGE_READONLY=0x2;
+		int const PAGE_READWRITE=0x4;
+		int const PAGE_WRITECOMBINE=0x400;
+		int const PAGE_WRITECOPY=0x8;
+		[entry("MapViewOfFile")] int MapViewOfFile(int hFileMappingObject, int dwDesiredAccess, int dwFileOffsetHigh, int dwFileOffsetLow, int dwNumberOfBytesToMap);
+		int const FILE_MAP_ALL_ACCESS=0x1f001f;
+		int const FILE_MAP_COPY=0x1;
+		int const FILE_MAP_READ=0x4;
+		int const FILE_MAP_WRITE=0x2;
+		[entry("UnmapViewOfFile")] int  UnmapViewOfFile(int lpBaseAddress);
+		[entry("CloseHandle")] int CloseHandle(int hObject);
+		[entry("AllocConsole")] int AllocConsole();
+		[entry("FreeConsole")] int FreeConsole();
+		[entry("GetStdHandle")] int GetStdHandle(int nStdHandle);
+		[entry("SetStdHandle")] int SetStdHandle(int nStdHandle, int nHandle);
+		int const STD_ERROR_HANDLE=-12;
+		int const STD_INPUT_HANDLE=-10;
+		int const STD_OUTPUT_HANDLE=-11;
+		[entry("WriteConsoleW")] int WriteConsole(int hConsoleOutput, BSTR lpBuffer, int nNumberOfCharsToWrite, int* lpNumberOfCharsWritten, int lpReserved);
+		[entry("WriteFile")] int WriteFile2(int hFile, LPSTR lpBuffer, int nNumberOfBytesToWrite, int* lpNumberOfBytesWritten, void* lpOverlapped);
+		[entry("ExitProcess")] void ExitProcess(int nExitCode);
+		[entry("FatalAppExitW")] void FatalAppExit(int uAction, BSTR lpMessageText);
+	}
+	[dllname("msvbvm60.dll")]
+	module msvbvm60
+	{
+		[entry("CreateIExprSrvObj")] long CreateIExprSrvObj(long u1_0, long u2_4, long u3_0);
+		[entry("GetMem1")] void GetMem1(long pAddr, void* pBuff);
+		[entry("GetMem2")] void GetMem2(long pAddr, void* pBuff);
+		[entry("GetMem4")] void GetMem4(long pAddr, void* pBuff);
+		[entry("GetMem8")] void GetMem8(long pAddr, void* pBuff);
+		[entry("PutMem1")] void PutMem1(long pAddr, byte pBuff);
+		[entry("PutMem2")] void PutMem2(long pAddr, short pBuff);
+		[entry("PutMem4")] void PutMem4(long pAddr, long pBuff);
+		[entry("PutMem8")] void PutMem8(long pAddr, long pBuff1, long pBuff2);
+		[entry("VarPtr")] int StrPtrA(LPSTR Str);
+	}
+	// ==================== Type Definitions ====================
+	// ========== Basic Types ==========
+	typedef long NTSTATUS;
+	typedef long HANDLE;
+	typedef long LONG;
+	typedef long ULONG;
+	typedef long DWORD;
+	typedef long ACCESS_MASK;
+	typedef long SIZE_T;
+	typedef byte BYTE;
+	typedef void VOID;
+	#define PHANDLE HANDLE*
+	#define PLONG LONG*
+	#define PULONG ULONG*
+	#define __in [in]
+	#define __out [out]
+	#define PBOOL BOOL*
+	typedef ULONG EXECUTION_STATE;
+	// ========== Struct/Enum Types ==========
+	typedef struct UNICODE_STRING {
+		short Length;
+		short MaximumLength;
+		long Buffer;
+	} UNICODE_STRING, *PUNICODE_STRING;
+	typedef struct OBJECT_ATTRIBUTES {
+		ULONG Length;
+		HANDLE RootDirectory;
+		LONG ObjectName;
+		ULONG Attributes;
+		LONG SecurityDescriptor;        // Points to type SECURITY_DESCRIPTOR
+		LONG SecurityQualityOfService;  // Points to type SECURITY_QUALITY_OF_SERVICE
+	} OBJECT_ATTRIBUTES, *POBJECT_ATTRIBUTES;
+	typedef enum PROCESSINFOCLASS {
+		ProcessBasicInformation,
+		ProcessQuotaLimits,
+		ProcessIoCounters,
+		ProcessVmCounters,
+		ProcessTimes,
+		ProcessBasePriority,
+		ProcessRaisePriority,
+		ProcessDebugPort,
+		ProcessExceptionPort,
+		ProcessAccessToken,
+		ProcessLdtInformation,
+		ProcessLdtSize,
+		ProcessDefaultHardErrorMode,
+		ProcessIoPortHandlers,          // Note: this is kernel mode only
+		ProcessPooledUsageAndLimits,
+		ProcessWorkingSetWatch,
+		ProcessUserModeIOPL,
+		ProcessEnableAlignmentFaultFixup,
+		ProcessPriorityClass,
+		ProcessWx86Information,
+		ProcessHandleCount,
+		ProcessAffinityMask,
+		ProcessPriorityBoost,
+		ProcessDeviceMap,
+		ProcessSessionInformation,
+		ProcessForegroundInformation,
+		ProcessWow64Information,
+		ProcessImageFileName,
+		ProcessLUIDDeviceMapsEnabled,
+		ProcessBreakOnTermination,
+		ProcessDebugObjectHandle,
+		ProcessDebugFlags,
+		ProcessHandleTracing,
+		ProcessIoPriority,
+		ProcessExecuteFlags,
+		ProcessResourceManagement,
+		ProcessCookie,
+		ProcessImageInformation,
+		MaxProcessInfoClass             // MaxProcessInfoClass should always be the last enum
+	} PROCESSINFOCLASS;
+	typedef struct PROCESS_BASIC_INFORMATION {
+		NTSTATUS ExitStatus;
+		LONG PebBaseAddress;
+		LONG AffinityMask;
+		LONG BasePriority;
+		LONG UniqueProcessId;
+		LONG InheritedFromUniqueProcessId;
+	} PROCESS_BASIC_INFORMATION, *PPROCESS_BASIC_INFORMATION;
+	typedef struct CLIENT_ID {
+		HANDLE UniqueProcess;
+		HANDLE UniqueThread;
+	} CLIENT_ID;
+	typedef CLIENT_ID *PCLIENT_ID;
+	typedef enum SHUTDOWN_ACTION {
+		ShutdownNoReboot,
+		ShutdownReboot,
+		ShutdownPowerOff
+	} SHUTDOWN_ACTION;
+	typedef struct IO_STATUS_BLOCK {
+        NTSTATUS Status;
+		ULONG Information;
+	} IO_STATUS_BLOCK, *PIO_STATUS_BLOCK;
+	typedef enum EVENT_TYPE {
+		NotificationEvent,
+		SynchronizationEvent
+    } EVENT_TYPE;
+	// ==================== Native Declarations ====================
+	[dllname("NTDLL.DLL")]
+	module NTDLL {
+		// === Process ===
+		[entry("NtQueryInformationProcess")]
+		NTSTATUS
+		NtQueryInformationProcess(
+			__in HANDLE ProcessHandle,
+			__in PROCESSINFOCLASS ProcessInformationClass,
+			__out PVOID ProcessInformation,
+			__in ULONG ProcessInformationLength,
+			__out PULONG ReturnLength
+			);
+		[entry("NtTerminateProcess")]
+		NTSTATUS
+		NtTerminateProcess(
+			__in HANDLE ProcessHandle,
+			__in NTSTATUS ExitStatus
+			);
+		// === I/O ===
+		[entry("NtCreateFile")]
+		NTSTATUS
+		NtCreateFile(
+			__out PHANDLE FileHandle,
+			__in ACCESS_MASK DesiredAccess,
+			__in PVOID ObjectAttributes,
+			__out PVOID IoStatusBlock,
+			__in PVOID AllocationSize,
+			__in ULONG FileAttributes,
+			__in ULONG ShareAccess,
+			__in ULONG CreateDisposition,
+			__in ULONG CreateOptions,
+			__in PVOID EaBuffer,
+			__in ULONG EaLength
+			);
+		[entry("NtReadFile")]
+		NTSTATUS
+		NtReadFile(
+			__in HANDLE FileHandle,
+			__in HANDLE Event,
+			__in PVOID ApcRoutine,
+			__in PVOID ApcContext,
+			__out PIO_STATUS_BLOCK IoStatusBlock,
+			__out PVOID Buffer,
+			__in ULONG Length,
+			__in PVOID ByteOffset,
+			__in PULONG Key
+			);
+		// === Object ===
+		[entry("NtWaitForSingleObject")]
+		NTSTATUS
+		NtWaitForSingleObject(
+			__in HANDLE Handle,
+			__in BOOL Alertable,
+			__in PLARGE_INTEGER Timeout
+			);
+		[entry("NtClose")]
+		NTSTATUS
+		NtClose(
+			__in HANDLE Object
+			);
+		// === Power ===
+		[entry("NtSetThreadExecutionState")]
+		NTSTATUS
+		NtSetThreadExecutionState(
+			__in EXECUTION_STATE esFlags,               // ES_xxx flags
+			__out EXECUTION_STATE *PreviousFlags
+			);
+		// === Executive ===
+		[entry("NtCreateEvent")]
+		NTSTATUS
+		NtCreateEvent(
+			__out PHANDLE EventHandle,
+			__in ACCESS_MASK DesiredAccess,
+			__in PVOID ObjectAttributes,
+			__in EVENT_TYPE EventType,
+			__in BOOL InitialState
+			);
+		[entry("NtDelayExecution")]
+		NTSTATUS
+		NtDelayExecution(
+			__in BOOL Alertable,
+			__in PLARGE_INTEGER DelayInterval
+			);
+		[entry("NtDisplayString")]
+		NTSTATUS
+		NtDisplayString(
+			__in PVOID String
+			);
+		[entry("NtQuerySystemTime")]
+		NTSTATUS
+		NtQuerySystemTime(
+			__out PLARGE_INTEGER SystemTime
+			);
+		[entry("NtShutdownSystem")]
+		NTSTATUS
+		NtShutdownSystem(
+			__in SHUTDOWN_ACTION Action
+			);
+		// ========== Runtime APIs ==========
+		// === Thread ===
+		[entry("RtlCreateUserThread")]
+		NTSTATUS
+		RtlCreateUserThread(
+			__in HANDLE Process,
+			__in PVOID ThreadSecurityDescriptor,
+			__in BOOL CreateSuspended,
+			__in ULONG StackZeroBits,
+			__in SIZE_T MaximumStackSize,
+			__in SIZE_T InitialStackSize,
+			__in LONG StartAddress,
+			__in PVOID Parameter,
+			__out PHANDLE Thread,
+			__out PCLIENT_ID ClientId
+			);
+		[entry("RtlExitUserThread")]
+		VOID
+		RtlExitUserThread(
+			__in NTSTATUS ExitStatus
+			);
+		// === Debug ===
+		[entry("DbgBreakPoint")] void DbgBreakPoint();
+		// === Privilege ===
+		[entry("RtlAdjustPrivilege")]
+		NTSTATUS
+		RtlAdjustPrivilege(
+			__in LONG Privilege,
+			__in BOOL Enable,
+			__in BOOL CurrenThread,
+			__out PBOOL IsEnabled
+			);
+		// === Heap ===
+		[entry("RtlCreateHeap")]
+		HANDLE
+		RtlCreateHeap(
+			__in LONG Options,
+			__in LONG Unknown1,
+			__in ULONG MaximumSize,
+			__in ULONG InitialSize,
+			__in LONG Unknown2,
+			__in LONG Unknown3
+			);
+		[entry("RtlDestroyHeap")]
+		VOID
+		RtlDestroyHeap(
+			__in HANDLE Heap
+			);
+		[entry("RtlAllocateHeap")]
+		LONG
+		RtlAllocateHeap(
+			__in HANDLE Heap,
+			__in DWORD Flags,
+			__in ULONG Bytes
+			);
+		[entry("RtlFreeHeap")]
+		VOID
+		RtlFreeHeap(
+			__in HANDLE Heap,
+			__in DWORD Flags,
+			__in LONG Mem
+			);
+		// === String ===
+		[entry("RtlInitUnicodeString")]
+		VOID
+		RtlInitUnicodeString(
+			__out UNICODE_STRING* DestinationString,
+			__in LONG SourceString
+			);
+		[entry("RtlIntegerToUnicodeString")]
+		VOID
+		RtlIntegerToUnicodeString(
+			__in LONG Value,
+			__in LONG Base,
+			__out UNICODE_STRING* String
+			);
+		// === Memory ===
+		[entry("RtlMoveMemory")]
+		VOID
+		RtlMoveMemory(
+			__out PVOID Destination,
+			__in PVOID Source,
+			__in ULONG Bytes
+			);
+		[entry("RtlZeroMemory")]
+		VOID
+		RtlZeroMemory(
+			__out PVOID Destination,
+			__in ULONG Bytes
+			);
+		[entry("RtlFillMemory")]
+		VOID
+		RtlFillMemory(
+			__out PVOID Destination,
+			__in ULONG Bytes,
+			__in BYTE Fill
+			);
+		// ==================== Constants ====================
+		// NT Status
+		int const STATUS_SUCCESS                  = 0x00000000;    // ntsubauth
+		int const STATUS_TIMEOUT                  = 0x00000102;    // winnt
+		int const STATUS_PENDING                  = 0x00000103;    // winnt
+		// Privileges
+		int const SE_CREATE_TOKEN_PRIVILEGE         = 2;
+		int const SE_ASSIGNPRIMARYTOKEN_PRIVILEGE   = 3;
+		int const SE_LOCK_MEMORY_PRIVILEGE          = 4;
+		int const SE_INCREASE_QUOTA_PRIVILEGE       = 5;
+		int const SE_UNSOLICITED_INPUT_PRIVILEGE    = 6; // Unsolicited Input is obsolete and unused.
+		int const SE_MACHINE_ACCOUNT_PRIVILEGE      = 6;
+		int const SE_TCB_PRIVILEGE                  = 7;
+		int const SE_SECURITY_PRIVILEGE             = 8;
+		int const SE_TAKE_OWNERSHIP_PRIVILEGE       = 9;
+		int const SE_LOAD_DRIVER_PRIVILEGE          = 10;
+		int const SE_SYSTEM_PROFILE_PRIVILEGE       = 11;
+		int const SE_SYSTEMTIME_PRIVILEGE           = 12;
+		int const SE_PROF_SINGLE_PROCESS_PRIVILEGE  = 13;
+		int const SE_INC_BASE_PRIORITY_PRIVILEGE    = 14;
+		int const SE_CREATE_PAGEFILE_PRIVILEGE      = 15;
+		int const SE_CREATE_PERMANENT_PRIVILEGE     = 16;
+		int const SE_BACKUP_PRIVILEGE               = 17;
+		int const SE_RESTORE_PRIVILEGE              = 18;
+		int const SE_SHUTDOWN_PRIVILEGE             = 19;
+		int const SE_DEBUG_PRIVILEGE                = 20;
+		int const SE_AUDIT_PRIVILEGE                = 21;
+		int const SE_SYSTEM_ENVIRONMENT_PRIVILEGE   = 22;
+		int const SE_CHANGE_NOTIFY_PRIVILEGE        = 23;
+		int const SE_REMOTE_SHUTDOWN_PRIVILEGE      = 24;
+		int const SE_UNDOCK_PRIVILEGE               = 25;
+		int const SE_SYNC_AGENT_PRIVILEGE           = 26;
+		int const SE_ENABLE_DELEGATION_PRIVILEGE    = 27;
+		int const SE_MANAGE_VOLUME_PRIVILEGE        = 28;
+		int const SE_IMPERSONATE_PRIVILEGE          = 29;
+		int const SE_CREATE_GLOBAL_PRIVILEGE        = 30;
+
+		// EXECUTE_STATE Flags
+		int const ES_SYSTEM_REQUIRED  = 0x00000001;
+		int const ES_DISPLAY_REQUIRED = 0x00000002;
+		int const ES_USER_PRESENT     = 0x00000004;
+		int const ES_CONTINUOUS       = 0x80000000;
+
+		// Object Attributes
+		int const OBJ_INHERIT             = 0x00000002;
+		int const OBJ_PERMANENT           = 0x00000010;
+		int const OBJ_EXCLUSIVE           = 0x00000020;
+		int const OBJ_CASE_INSENSITIVE    = 0x00000040;
+		int const OBJ_OPENIF              = 0x00000080;
+		int const OBJ_OPENLINK            = 0x00000100;
+		int const OBJ_KERNEL_HANDLE       = 0x00000200;
+		int const OBJ_FORCE_ACCESS_CHECK  = 0x00000400;
+		int const OBJ_VALID_ATTRIBUTES    = 0x000007F2;
+
+		// File Attributes
+		int const FILE_ATTRIBUTE_READONLY            = 0x00000001;  // winnt
+		int const FILE_ATTRIBUTE_HIDDEN              = 0x00000002;  // winnt
+		int const FILE_ATTRIBUTE_SYSTEM              = 0x00000004;  // winnt
+		//OLD DOS VOLID                             0x00000008
+
+		int const FILE_ATTRIBUTE_DIRECTORY          =  0x00000010;  // winnt
+		int const FILE_ATTRIBUTE_ARCHIVE            =  0x00000020;  // winnt
+		int const FILE_ATTRIBUTE_DEVICE             =  0x00000040;  // winnt
+		int const FILE_ATTRIBUTE_NORMAL             =  0x00000080;  // winnt
+
+		int const FILE_ATTRIBUTE_TEMPORARY           = 0x00000100;  // winnt
+		int const FILE_ATTRIBUTE_SPARSE_FILE         = 0x00000200;  // winnt
+		int const FILE_ATTRIBUTE_REPARSE_POINT       = 0x00000400;  // winnt
+		int const FILE_ATTRIBUTE_COMPRESSED          = 0x00000800;  // winnt
+
+		int const FILE_ATTRIBUTE_OFFLINE             = 0x00001000;  // winnt
+		int const FILE_ATTRIBUTE_NOT_CONTENT_INDEXED = 0x00002000;  // winnt
+		int const FILE_ATTRIBUTE_ENCRYPTED           = 0x00004000;  // winnt
+
+		int const FILE_ATTRIBUTE_VALID_FLAGS         = 0x00007fb7;
+		int const FILE_ATTRIBUTE_VALID_SET_FLAGS     = 0x000031a7;
+
+		// File Create Disposition
+		int const FILE_SUPERSEDE                 = 0x00000000;
+		int const FILE_OPEN                      = 0x00000001;
+		int const FILE_CREATE                    = 0x00000002;
+		int const FILE_OPEN_IF                   = 0x00000003;
+		int const FILE_OVERWRITE                 = 0x00000004;
+		int const FILE_OVERWRITE_IF              = 0x00000005;
+		int const FILE_MAXIMUM_DISPOSITION       = 0x00000005;
+
+		// File Create/Open Option Flags
+		int const FILE_DIRECTORY_FILE                    = 0x00000001;
+		int const FILE_WRITE_THROUGH                     = 0x00000002;
+		int const FILE_SEQUENTIAL_ONLY                   = 0x00000004;
+		int const FILE_NO_INTERMEDIATE_BUFFERING         = 0x00000008;
+		
+		int const FILE_SYNCHRONOUS_IO_ALERT              = 0x00000010;
+		int const FILE_SYNCHRONOUS_IO_NONALERT           = 0x00000020;
+		int const FILE_NON_DIRECTORY_FILE                = 0x00000040;
+		int const FILE_CREATE_TREE_CONNECTION            = 0x00000080;
+		
+		int const FILE_COMPLETE_IF_OPLOCKED              = 0x00000100;
+		int const FILE_NO_EA_KNOWLEDGE                   = 0x00000200;
+		int const FILE_OPEN_FOR_RECOVERY                 = 0x00000400;
+		int const FILE_RANDOM_ACCESS                     = 0x00000800;
+
+		int const FILE_DELETE_ON_CLOSE                   = 0x00001000;
+		int const FILE_OPEN_BY_FILE_ID                   = 0x00002000;
+		int const FILE_OPEN_FOR_BACKUP_INTENT            = 0x00004000;
+		int const FILE_NO_COMPRESSION                    = 0x00008000;
+
+		int const FILE_RESERVE_OPFILTER                  = 0x00100000;
+		int const FILE_OPEN_REPARSE_POINT                = 0x00200000;
+		int const FILE_OPEN_NO_RECALL                    = 0x00400000;
+		int const FILE_OPEN_FOR_FREE_SPACE_QUERY         = 0x00800000;
+
+
+		int const FILE_COPY_STRUCTURED_STORAGE           = 0x00000041;
+		int const FILE_STRUCTURED_STORAGE                = 0x00000441;
+
+
+		int const FILE_VALID_OPTION_FLAGS                = 0x00ffffff;
+		int const FILE_VALID_PIPE_OPTION_FLAGS           = 0x00000032;
+		int const FILE_VALID_MAILSLOT_OPTION_FLAGS       = 0x00000032;
+		int const FILE_VALID_SET_FLAGS                   = 0x00000036;
+
+
+		[entry("RtlConvertUlongToLargeInteger")] long VarPtr2(void* Ptr);
+		[entry("RtlConvertUlongToLargeInteger")] long StrPtr2(BSTR Ptr);
+	}
+};
