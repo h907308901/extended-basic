@@ -1,0 +1,12 @@
+These features will be implemented in the future:
+
+Unary support
+Other predefined operators
+Mutiple dim
+ByRef support
+Boolean, String type and Type/Enum support
+Other statements
+Preprocessor instructions
+So on...
+
+If you have any suggestions or ideas, please contact us.

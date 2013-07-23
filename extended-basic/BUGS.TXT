@@ -1,0 +1,7 @@
+These are known bugs for this version:
+
+Cannot redirect STDERR to file
+IDE collapses if LLVM prints something on STDERR
+Collapse when use -O0 or -O1 switch (None optimization/Less optimization)
+
+If you find any other bugs, please contect us.
